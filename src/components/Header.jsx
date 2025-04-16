@@ -1,10 +1,7 @@
-import React, { useContext } from "react";
-import { Link } from "react-router";
-import { Context } from "../context/cartContext";
+import React from "react";
+import { Link } from "react-router-dom"; // ✅ تصحيح المسار
 
 function Header({ children }) {
-  const { cart } = useContext(Context);
-
   const NavLinks = [
     {
       title: "Home",
@@ -30,7 +27,7 @@ function Header({ children }) {
 
   return (
     <>
-      <nav className="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
           <Link className="navbar-brand" to={"/"}>
             Shopping Cart App
@@ -46,27 +43,27 @@ function Header({ children }) {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
+
           <div className="collapse navbar-collapse" id="navbarText">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              {NavLinks.map((item, index) => {
-                return (
-                  <li className="nav-item" key={index}>
-                    <Link
-                      className="nav-link active"
-                      aria-current="page"
-                      to={item.url}
-                    >
-                      {item.title === "Cart"
-                        ? `${item.title}(${cart.length})`
-                        : item.title}
-                    </Link>
-                  </li>
-                );
-              })}
+              {NavLinks.map((item, index) => (
+                <li className="nav-item" key={index}>
+                  <Link className="nav-link active" to={item.url}>
+                    {item.title}
+                  </Link>
+                </li>
+              ))}
             </ul>
-            <Link className="navbar-text" to={"/login"}>
-              Login
-            </Link>
+
+            {/* روابط Login و Register */}
+            <div className="d-flex gap-3">
+              <Link className="nav-link" to="/login">
+                Login
+              </Link>
+              <Link className="nav-link" to="/register">
+                Register
+              </Link>
+            </div>
           </div>
         </div>
       </nav>

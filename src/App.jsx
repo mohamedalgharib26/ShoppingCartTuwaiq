@@ -1,36 +1,29 @@
 import { Route, Routes } from "react-router";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 import HomePage from "./pages/Home";
 import Cart from "./pages/Cart";
 import DashBoard from "./pages/Dashboard.jsx";
 import User from "./pages/User.jsx";
-import "./App.css";
 import Login from "./pages/Login.jsx";
-import { Bounce, ToastContainer } from "react-toastify";
+import Register from "./pages/Register.jsx";
+import "./App.css";
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<HomePage />}></Route>
-        <Route path="/dashboard" element={<DashBoard />}></Route>
-        <Route path="/user" element={<User />}></Route>
-        <Route path="/cart" element={<Cart />}></Route>
-        <Route path="/login" element={<Login />}></Route>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/dashboard" element={<DashBoard />} />
+        <Route path="/user" element={<User />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick={false}
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-        transition={Bounce}
-      />
+      
+      {/* هذا هو العنصر المسؤول عن عرض التنبيهات */}
+      <ToastContainer />
     </>
   );
 }
