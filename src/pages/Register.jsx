@@ -1,36 +1,69 @@
-// src/pages/Register.jsx
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Bounce, toast } from "react-toastify";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [country, setCountry] = useState("");
+  const [existingUsers, setExistingUsers] = useState([]);
 
   const navigate = useNavigate();
 
-  const notify = () =>
-    toast("Registered Successfully!", {
+  useEffect(() => {
+    // جلب المستخدمين الموجودين للتحقق من التكرار
+    axios.get("http://localhost:3000/users").then((res) => {
+      setExistingUsers(res.data);
+    });
+  }, []);
+
+  const notify = (msg, type = "success") =>
+    toast[type](msg, {
       position: "top-right",
       autoClose: 5000,
       theme: "colored",
       transition: Bounce,
     });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (password !== confirmPassword) {
-      toast.error("Passwords do not match!");
+    if (!email || !password || !confirmPassword || !country) {
+      notify("Please fill in all fields!", "error");
       return;
     }
 
-    //   هنا نقدر نضيف البيانات للسيرفر اللي ناوين نسخدم فيه ملف الجيسون
-    notify();
-    navigate("/login");
+    if (password !== confirmPassword) {
+      notify("Passwords do not match!", "error");
+      return;
+    }
+
+    // تحقق من الإيميل هل هو موجود مسبقًا
+    const alreadyExists = existingUsers.some((user) => user.email === email);
+    if (alreadyExists) {
+      notify("Email is already registered!", "error");
+      return;
+    }
+
+    // إنشاء كائن المستخدم الجديد
+    const newUser = {
+      email,
+      password,
+      country,
+      name: "", // اسم مبدئي فاضي، تقدر تعدله لاحقاً
+      username: "", // اسم مستخدم فاضي مبدئياً
+    };
+
+    try {
+      await axios.post("http://localhost:3000/users", newUser);
+      notify("Registered Successfully!");
+      navigate("/login");
+    } catch (err) {
+      console.error("Registration error:", err);
+      notify("Registration failed!", "error");
+    }
   };
 
   return (

@@ -1,6 +1,4 @@
-import { Route, Routes } from "react-router";
-import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import { Route, Routes } from "react-router-dom";
 
 import HomePage from "./pages/Home";
 import Cart from "./pages/Cart";
@@ -8,7 +6,9 @@ import DashBoard from "./pages/Dashboard.jsx";
 import User from "./pages/User.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
+import UpdateUser from "./pages/UpdateUser.jsx"; // ✅ استيراد مكون التحديث
 import "./App.css";
+import { Bounce, ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -20,10 +20,23 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        {/* ✅ إضافة الراوت لتحديث المستخدم */}
+        <Route path="/update-user/:id" element={<UpdateUser />} />
       </Routes>
-      
-      {/* هذا هو العنصر المسؤول عن عرض التنبيهات */}
-      <ToastContainer />
+
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+        transition={Bounce}
+      />
     </>
   );
 }

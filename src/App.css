@@ -14,5 +14,5 @@
     height: 100vh;
     width: 100%;
     background: #82cbed;
-background: linear-gradient(90deg,rgba(130, 203, 237, 1) 0%, rgba(55, 204, 117, 1) 50%, rgba(237, 221, 83, 1) 100%);
+background: radial-gradient(circle,rgba(130, 203, 237, 1) 0%, rgba(144, 204, 55, 1) 68%, rgba(237, 221, 83, 1) 100%);
 }
