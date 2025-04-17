@@ -7,10 +7,12 @@ function Login() {
   const [email, setEmail] = useState("");
 
   const [password, setPassword] = useState("");
+
   const navigate = useNavigate();
 
-  const el = useRef(null);
-
+  const inputRef = useRef(null);
+  const emailHelp = useRef(null);
+  const emailRef = useRef(null);
   const notify = () =>
     toast("Login Success!", {
       position: "top-right",
@@ -34,19 +36,24 @@ function Login() {
     //   return;
     // }
     // send data to backend;
-    el.current = email;
+    inputRef.current.style.display = "none";
+    emailHelp.current.style.color = "red";
   };
   useEffect(() => {
-    el.current = email;
-  }, [email]);
+    // ;
+    emailRef.current = {
+      email: email,
+    };
+  }, [inputRef.current, email]);
   return (
     <>
       <div className="content">
         <div className="card-container">
           <div className="card mt-5 card-style">
-            <h1 className="text-center">Login </h1>
+            <h1 className="text-center" ref={inputRef}>
+              Login{" "}
+            </h1>
             <form onSubmit={handleFrom}>
-              <p>{el.current}</p>
               <div className="mb-3">
                 <label htmlFor="exampleInputEmail1" className="form-label">
                   Email address
@@ -61,9 +68,7 @@ function Login() {
                     setEmail(e.target.value);
                   }}
                 />
-                <div id="emailHelp" className="form-text">
-                  We'll never share your email with anyone else.
-                </div>
+                <div id="emailHelp" ref={emailHelp} className="form-text"></div>
               </div>
               <div className="mb-3">
                 <label htmlFor="exampleInputPassword1" className="form-label">

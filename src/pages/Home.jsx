@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useReducer } from "react";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
 import Slider from "../components/Slider";
