@@ -1,8 +1,11 @@
 import React, { useContext } from "react";
 import { Context } from "../context/cartContext";
+import { useDispatch } from "react-redux";
+import { addToCartAction } from "../store/slices/cartSilce";
 
 function Product({ product }) {
-  const { cart, addToCart } = useContext(Context);
+  // const { cart, addToCart } = useContext(Context);
+  const dispatch = useDispatch();
 
   return (
     <div className="col-3">
@@ -32,7 +35,7 @@ function Product({ product }) {
               <button
                 type="button"
                 className="btn btn-md btn-success"
-                onClick={() => addToCart(product)}
+                onClick={() => dispatch(addToCartAction(product))}
               >
                 Add To Cart
               </button>

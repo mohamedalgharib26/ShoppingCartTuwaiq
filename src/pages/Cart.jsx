@@ -1,16 +1,41 @@
-import React, { useContext } from "react";
-import { Context } from "../context/cartContext";
+import React, { useContext, useEffect } from "react";
+// import { Context } from "../context/cartContext";
 import Header from "../components/Header";
 
-function Cart() {
-  const { cart, setCart } = useContext(Context);
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { clearCartAction } from "../store/slices/cartSilce";
 
+function Cart() {
+  // const { cart, setCart } = useContext(Context);
+  const cart = useSelector((state) => state.cart.cartItems);
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, []);
+
+  const dispatch = useDispatch();
+
+  const clearCart = () => {
+    localStorage.clear();
+    dispatch(clearCartAction());
+  };
   return (
     <>
       <Header />
       <div className="container">
         <div className="row">
           <h2 className="text-center">Cart Items </h2>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row-reverse",
+            }}
+          >
+            <button className="btn btn-dark m-2 " onClick={clearCart}>
+              Clear cart{" "}
+            </button>
+          </div>
           <table className="table">
             <thead>
               <tr>

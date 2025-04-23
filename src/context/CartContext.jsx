@@ -15,7 +15,7 @@ function CartContext({ children }) {
 
   const addToCart = (product) => {
     const isExiting = cart.find((item) => item.id === product.id);
-    //if product Already exist
+    // if product Already exist
     if (isExiting) {
       setCart(
         cart.map((cartItem) => {
@@ -38,7 +38,7 @@ function CartContext({ children }) {
     }
   };
 
-  //remove from cart
+  // remove from cart
 
   return (
     <Context.Provider value={{ cart, addToCart }}>{children}</Context.Provider>

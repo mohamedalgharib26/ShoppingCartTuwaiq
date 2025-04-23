@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router";
-import { Context } from "../context/cartContext";
+// import { Context } from "../context/cartContext";
 
 function Header({ children }) {
-  const { cart } = useContext(Context);
+  // const { cart } = useContext(Context);
+  const cart = useSelector((state) => state.cart.cartItems);
 
   const NavLinks = [
     {
